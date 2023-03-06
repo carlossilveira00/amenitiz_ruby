@@ -11,6 +11,10 @@ class Item
     @price = price
   end
 
+  def dup
+    Item.new(@name, @product_code, @price)
+  end
+
   private
 
   def check_string_arguments(arg, arg_name)
