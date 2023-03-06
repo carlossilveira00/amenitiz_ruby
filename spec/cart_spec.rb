@@ -38,10 +38,7 @@ RSpec.describe Cart do
     it "creates a new copy of the item when adding it to the cart." do
       cart.add_item(item1)
 
-      item1.name = "New Strawberries"
-      item1.price = 10.00
-
-      expect(cart.items[0].name).to eq('Strawberries')
+      expect(cart.items[0].object_id).not_to eq(item1.object_id)
     end
 
 
