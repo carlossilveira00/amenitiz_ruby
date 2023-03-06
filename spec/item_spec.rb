@@ -14,17 +14,16 @@ RSpec.describe Item do
     end
 
     it 'raises an error if the name is not a string.' do
-      expect(Item.new(12345, 'ABC123', 9.99)).to raise_error(ArgumentError)
+      expect { Item.new(12345, 'ABC123', 9.99) }.to raise_error(ArgumentError)
     end
 
     it 'raises an error if the product_code is not a string.' do
-      expect(Item.new('Test Item', 123, 9.99)).to raise_error(ArgumentError)
+      expect { Item.new('Test Item', 123, 9.99) }.to raise_error(ArgumentError)
     end
 
     it 'raises an error if the price is not a float.' do
-      expect(Item.new('Test Item', 123, 10)).to raise_error(ArgumentError)
+      expect { Item.new('Test Item', 'ABC123', 10) }.to raise_error(ArgumentError)
     end
-
   end
 
 end
