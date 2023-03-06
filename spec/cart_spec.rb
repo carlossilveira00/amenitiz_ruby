@@ -63,10 +63,28 @@ RSpec.describe Cart do
     it "returns an error message when provided an invalid ID." do
       expect { cart.delete_item('invalid id') }.to output("Invalid ID provided. Please provide a valid integer.\n").to_stdout
     end
-
-
-
   end
+
+  describe "#compute_price" do
+    before do
+      cart.add_item(item1)
+      cart.add_item(item2)
+      cart.add_item(item2)
+      cart.add_item(item2)
+      cart.add_item(item3)
+    end
+
+    it "calculates the total price of all the items in the cart." do
+      expect(cart.compute_price).to eq(cart.items.sum(&:price))
+    end
+
+    context "when cart is empty" do
+      it "calculates the total price as 0" do
+        expect(cart.compute_price).to eq(0)
+      end
+    end
+  end
+
 
 
 end
