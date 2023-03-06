@@ -13,6 +13,39 @@ RSpec.describe Cart do
     end
   end
 
+  describe "#add_item" do
+    it "add an item to the cart." do
+      cart.add_item(item1)
 
+      expect(cart.items).to include(item1)
+    end
+
+    it "add duplicate items to the cart." do
+      cart.add_item(item1)
+      cart.add_item(item1)
+
+      expect(cart.items.length).to eq(2)
+    end
+
+    it "adds different items to the cart." do
+      cart.add_item(item1)
+      cart.add_item(item2)
+
+      expect(cart.items.length).to eq(2)
+      expect(cart.items).to include(item1, item2)
+    end
+
+    it "creates a new copy of the item when adding it to the cart." do
+      cart.add_item(item1)
+
+      item1.name = "New Strawberries"
+      item1.price = 10.00
+
+      expect(cart.items[0].name).to eq('Strawberries')
+    end
+
+
+
+  end
 
 end
