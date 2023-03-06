@@ -61,7 +61,7 @@ RSpec.describe Cart do
     end
 
     it "returns an error message when provided an invalid ID." do
-      expect(cart.delete_item('invalid id')).to output("Invalid ID provided. Please provide a valid integer.")
+      expect { cart.delete_item('invalid id') }.to output("Invalid ID provided. Please provide a valid integer.\n").to_stdout
     end
 
 
