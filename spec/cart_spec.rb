@@ -46,9 +46,27 @@ RSpec.describe Cart do
 
       expect(cart.items[0].object_id).not_to eq(item1.object_id)
     end
+  end
+
+  describe "#delete_item" do
+    before do
+      cart.add_item(item1)
+      cart.add_item(item2)
+    end
+
+    it "removes the item with the given id from the cart." do
+      cart.delete_item(0)
+
+      expect(cart.items.length).to eq(1)
+    end
+
+    it "returns an error message when provided an invalid ID." do
+      expect(cart.delete_item('invalid id')).to output("Invalid ID provided. Please provide a valid integer.")
+    end
 
 
 
   end
+
 
 end
