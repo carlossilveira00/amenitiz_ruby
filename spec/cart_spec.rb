@@ -17,7 +17,9 @@ RSpec.describe Cart do
     it "add an item to the cart." do
       cart.add_item(item1)
 
-      expect(cart.items).to include(item1)
+      expect(cart.items[0].name).to eq(item1.name)
+      expect(cart.items[0].product_code).to eq(item1.product_code)
+      expect(cart.items[0].price).to eq(item1.price)
     end
 
     it "add duplicate items to the cart." do
@@ -31,8 +33,12 @@ RSpec.describe Cart do
       cart.add_item(item1)
       cart.add_item(item2)
 
-      expect(cart.items.length).to eq(2)
-      expect(cart.items).to include(item1, item2)
+      item_list = [item1, item2]
+      cart.items.each_with_index do |item, index|
+        expect(item.name).to eq(item_list[index].name)
+        expect(item.product_code).to eq(item_list[index].product_code)
+        expect(item.price).to eq(item_list[index].price)
+      end
     end
 
     it "creates a new copy of the item when adding it to the cart." do
