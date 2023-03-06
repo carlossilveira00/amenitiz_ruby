@@ -26,4 +26,14 @@ RSpec.describe Item do
     end
   end
 
+  describe "#dup" do
+    it "creates a new object with the same attributes." do
+      new_item = item.dup
+
+      expect(new_item.object_id).not_to eq(item.object_id)
+      expect(new_item.name).to eq(item.name)
+      expect(new_item.product_code).to eq(item.product_code)
+      expect(new_item.price).to eq(item.price)
+    end
+  end
 end
