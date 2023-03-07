@@ -21,4 +21,13 @@ class Cart
     puts "Your total price is: #{total_price.round(2)}$"
     total_price
   end
+
+  def display_cart
+    return puts "Your Cart is empty!" if @items.empty?
+
+    puts 'Your cart:'
+    @items.each_with_index do |item, index|
+      puts "[#{index}] - #{item.name}: #{item.price}$"
+    end
+  end
 end

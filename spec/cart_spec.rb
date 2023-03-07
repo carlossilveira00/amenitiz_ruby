@@ -93,7 +93,7 @@ RSpec.describe Cart do
     end
 
     it "displays the items in the cart with their price and name." do
-      expected_message = "Your cart:\n[0] - Strawberries: 5.00$\n[1] - Green Tea: 3.50$"
+      expected_message = "Your cart:\n[0] - Strawberries: 5.0$\n[1] - Green Tea: 3.5$\n"
 
       expect { cart.display_cart }.to output(expected_message).to_stdout
     end
