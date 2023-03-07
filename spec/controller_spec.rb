@@ -74,7 +74,11 @@ RSpec.describe Controller do
     end
   end
 
-
-
-
+  describe "#checkout" do
+    context "when there are no items in the cart" do
+      it "displays a message to the user stating that the cart is empty" do
+        expect { controller.checkout }.to output("Your cart is empty! Are you sure you don't want something from our store?\n").to_stdout
+      end
+    end
+  end
 end

@@ -56,6 +56,13 @@ class Controller
     end
   end
 
+  def checkout
+    if @cart.items.empty?
+      puts "Your cart is empty! Are you sure you don't want something from our store?"
+    else
+    end
+  end
+
   private
 
   def load_csv(csv_file)
