@@ -100,11 +100,5 @@ RSpec.describe Promotion do
         expect(cart.items[1].price).to eq(11.23)
       end
     end
-
-
   end
-
-
-
-
 end
