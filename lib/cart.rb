@@ -17,7 +17,7 @@ class Cart
 
   def compute_price
     total_price = @items.sum(&:price)
-    puts "Calculating the price.... Beep.... Beep..."
+    puts 'Calculating the price.... Beep.... Beep...'
     puts "Your total price is: #{total_price.round(2)}$"
     total_price
   end
