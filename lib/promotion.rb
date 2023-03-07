@@ -12,6 +12,8 @@ class Promotion
       buy_one_get_one_free(cart)
     when :price_discount_per_quantity
       price_discount_per_quantity(cart)
+    when :percentage_discount_per_quantity
+      percentage_discount_per_quantity(cart)
     end
   end
 
@@ -31,6 +33,15 @@ class Promotion
     matching_items = cart_items.select { |item| item.product_code == @product_code }
 
     matching_items.each { |item| item.price = @discount } if matching_items.length >= 3
+  end
+
+  def percentage_discount_per_quantity(cart_items)
+    matching_items = cart_items.select { |item| item.product_code == @product_code }
+
+    matching_items.each do |item|
+      item.price *= (100.0 - @discount) / 100.0 if matching_items.length > 2
+      item.price = item.price.round(2)
+    end
   end
 
 end

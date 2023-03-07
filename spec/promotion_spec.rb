@@ -5,6 +5,7 @@ require_relative '../lib/promotion'
 RSpec.describe Promotion do
   let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_one_get_one_free, discount: 100 }) }
   let(:price_discount_per_quantity_promotion) { Promotion.new({ title:'Strawberries - Buy 3 or more and get price reduction to 4.50$!', product_code: "SR1", type: :price_discount_per_quantity, discount: 4.50 }) }
+  let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6 }) }
   let(:item1) { Item.new('Green Tea', 'GR1', 3.50) }
   let(:item2) { Item.new('Strawberries', 'SR1', 5.00) }
   let(:item3) { Item.new('Coffee', 'CF1', 11.23) }
@@ -76,6 +77,30 @@ RSpec.describe Promotion do
         expect(cart.items[1].price).to eq(5.00)
       end
     end
+
+    context "when promotion type is :percentage_discount_per_quantity" do
+      it "applies percentage discount for items with the correct product_code" do
+        cart.add_item(item3)
+        cart.add_item(item2)
+        cart.add_item(item3)
+        cart.add_item(item3)
+        percentage_discount_per_quantity_promotion.apply(cart.items)
+
+        expect(cart.items[0].price).to eq(3.75)
+        expect(cart.items[1].price).to eq(5.00)
+        expect(cart.items[2].price).to eq(3.75)
+        expect(cart.items[3].price).to eq(3.75)
+      end
+
+      it "does not apply promotion if quantity is bellow 3" do
+        cart.add_item(item3)
+        cart.add_item(item3)
+
+        expect(cart.items[0].price).to eq(11.23)
+        expect(cart.items[1].price).to eq(11.23)
+      end
+    end
+
 
   end
 
