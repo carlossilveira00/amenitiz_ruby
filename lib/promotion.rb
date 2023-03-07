@@ -10,6 +10,8 @@ class Promotion
     case @type
     when :buy_one_get_one_free
       buy_one_get_one_free(cart)
+    when :price_discount_per_quantity
+      price_discount_per_quantity(cart)
     end
   end
 
@@ -23,6 +25,12 @@ class Promotion
       new_item.price = 0
       cart_items << new_item
     end
+  end
+
+  def price_discount_per_quantity(cart_items)
+    matching_items = cart_items.select { |item| item.product_code == @product_code }
+
+    matching_items.each { |item| item.price = @discount } if matching_items.length >= 3
   end
 
 end
