@@ -80,12 +80,31 @@ RSpec.describe Cart do
 
     context "when cart is empty" do
       let(:empty_cart) { Cart.new }
+
       it "calculates the total price as 0" do
         expect(empty_cart.compute_price).to eq(0)
       end
     end
   end
 
+  describe "#display_cart" do
+    before do
+      cart.add_item(item1)
+      cart.add_item(item2)
+    end
 
+    it "displays the items in the cart with their price and name." do
+      expected_message = "Your cart:\n[0] - Strawberries: 5.0$\n[1] - Green Tea: 3.5$\n"
 
+      expect { cart.display_cart }.to output(expected_message).to_stdout
+    end
+
+    context "when the cart is empty" do
+      let(:empty_cart) { Cart.new }
+
+      it "displays a messages to the user that the cart is empty." do
+        expect { empty_cart.display_cart }.to output("Your Cart is empty!\n").to_stdout
+      end
+    end
+  end
 end

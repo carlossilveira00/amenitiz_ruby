@@ -17,8 +17,17 @@ class Cart
 
   def compute_price
     total_price = @items.sum(&:price)
-    puts "Calculating the price.... Beep.... Beep..."
+    puts 'Calculating the price.... Beep.... Beep...'
     puts "Your total price is: #{total_price.round(2)}$"
     total_price
+  end
+
+  def display_cart
+    return puts "Your Cart is empty!" if @items.empty?
+
+    puts 'Your cart:'
+    @items.each_with_index do |item, index|
+      puts "[#{index}] - #{item.name}: #{item.price}$"
+    end
   end
 end
