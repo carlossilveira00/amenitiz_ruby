@@ -40,6 +40,18 @@ class Controller
     end
   end
 
+  def delete_item_from_cart
+    # List all the items available in your cart
+    @cart.display_cart
+    # Ask the user which item he would like to delete from cart.
+    puts 'Please provide us with the number of the item you would like to delete from your cart.'
+    delete_item = gets.chomp.to_i
+    # Delete the item from the cart
+    @cart.delete_item(delete_item)
+    # Return the user with his cart
+    @cart.display_cart
+  end
+
   private
 
   def load_csv(csv_file)

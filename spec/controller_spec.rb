@@ -46,6 +46,35 @@ RSpec.describe Controller do
     end
   end
 
+  describe "#delete_item_from_cart" do
+    before do
+      allow(controller).to receive(:gets).and_return("#{item_index}\n")
+      controller.add_item_to_cart
+      controller.add_item_to_cart
+    end
+
+    context 'when the input is valid' do
+      let(:item_index) { 0 }
+
+      it 'deletes the item from the cart' do
+        controller.delete_item_from_cart
+
+        expect(controller.cart.items.length).to eq(1)
+      end
+    end
+
+    context 'when the input is invalid' do
+      let(:item_index) { -1 }
+
+      it 'keeps the cart unchanged' do
+        controller.delete_item_from_cart
+
+        expect(controller.cart.items.length).to eq(2)
+      end
+    end
+  end
+
+
 
 
 end
