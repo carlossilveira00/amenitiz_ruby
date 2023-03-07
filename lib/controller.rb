@@ -46,10 +46,14 @@ class Controller
     # Ask the user which item he would like to delete from cart.
     puts 'Please provide us with the number of the item you would like to delete from your cart.'
     delete_item = gets.chomp.to_i
-    # Delete the item from the cart
-    @cart.delete_item(delete_item)
-    # Return the user with his cart
-    @cart.display_cart
+    if @cart.items[delete_item].nil?
+      puts "We couldn't find the item you're looking for."
+    else
+      # Delete the item from the cart
+      @cart.delete_item(delete_item)
+      # Return the user with his cart
+      @cart.display_cart
+    end
   end
 
   private
