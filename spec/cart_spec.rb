@@ -80,6 +80,7 @@ RSpec.describe Cart do
 
     context "when cart is empty" do
       let(:empty_cart) { Cart.new }
+
       it "calculates the total price as 0" do
         expect(empty_cart.compute_price).to eq(0)
       end
@@ -106,5 +107,4 @@ RSpec.describe Cart do
       end
     end
   end
-
 end
