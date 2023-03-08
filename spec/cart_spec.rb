@@ -5,7 +5,7 @@ RSpec.describe Cart do
   let(:item1) { Item.new('Strawberries', 'SR1', 5.00) }
   let(:item2) { Item.new('Green Tea', 'GR1', 3.50) }
   let(:item3) { Item.new('Coffee', 'CF1', 11.23) }
-  let(:cart) { Cart.new }
+  let(:cart) { Cart.new([]) }
 
   describe "#initialize" do
     it "creates an empty cart." do
@@ -79,7 +79,7 @@ RSpec.describe Cart do
     end
 
     context "when cart is empty" do
-      let(:empty_cart) { Cart.new }
+      let(:empty_cart) { Cart.new([]) }
 
       it "calculates the total price as 0" do
         expect(empty_cart.compute_price).to eq(0)
@@ -100,7 +100,7 @@ RSpec.describe Cart do
     end
 
     context "when the cart is empty" do
-      let(:empty_cart) { Cart.new }
+      let(:empty_cart) { Cart.new([])}
 
       it "displays a messages to the user that the cart is empty." do
         expect { empty_cart.display_cart }.to output("Your Cart is empty!\n").to_stdout

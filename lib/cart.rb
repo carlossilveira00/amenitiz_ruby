@@ -1,8 +1,9 @@
 class Cart
   attr_reader :items
 
-  def initialize
+  def initialize(promotions)
     @items = []
+    @promotions = promotions
   end
 
   def add_item(item)
@@ -16,6 +17,7 @@ class Cart
   end
 
   def compute_price
+    @promotions.each { |promotion| promotion.apply(@items) } unless @promotions.empty?
     total_price = @items.sum(&:price)
     puts 'Calculating the price.... Beep.... Beep...'
     puts "Your total price is: #{total_price.round(2)}$"

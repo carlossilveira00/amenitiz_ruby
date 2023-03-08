@@ -5,9 +5,9 @@ require_relative 'cart'
 class Controller
   attr_reader :cart
 
-  def initialize(csv_file)
+  def initialize(csv_file, promotions)
     @items = []
-    @cart = Cart.new
+    @cart = Cart.new(promotions)
     load_csv(csv_file)
   end
 

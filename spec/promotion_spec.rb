@@ -6,10 +6,11 @@ RSpec.describe Promotion do
   let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_one_get_one_free, discount: 100 }) }
   let(:price_discount_per_quantity_promotion) { Promotion.new({ title:'Strawberries - Buy 3 or more and get price reduction to 4.50$!', product_code: "SR1", type: :price_discount_per_quantity, discount: 4.50 }) }
   let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6 }) }
+  let(:promotions) { [buy_one_get_one_free_promotion, price_discount_per_quantity_promotion, percentage_discount_per_quantity_promotion] }
   let(:item1) { Item.new('Green Tea', 'GR1', 3.50) }
   let(:item2) { Item.new('Strawberries', 'SR1', 5.00) }
   let(:item3) { Item.new('Coffee', 'CF1', 11.23) }
-  let(:cart) { Cart.new }
+  let(:cart) { Cart.new(promotions) }
 
   describe "#initialize" do
     context "when creating a new Promotion" do

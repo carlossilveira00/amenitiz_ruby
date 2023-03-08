@@ -1,8 +1,12 @@
 require_relative '../lib/controller'
 
 RSpec.describe Controller do
+  let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_one_get_one_free, discount: 100 }) }
+  let(:price_discount_per_quantity_promotion) { Promotion.new({ title:'Strawberries - Buy 3 or more and get price reduction to 4.50$!', product_code: "SR1", type: :price_discount_per_quantity, discount: 4.50 }) }
+  let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6 }) }
+  let(:promotions) { [buy_one_get_one_free_promotion, price_discount_per_quantity_promotion, percentage_discount_per_quantity_promotion] }
   let(:csv_file) { File.join(__dir__, '../lib/items.csv')  }
-  let(:controller) { Controller.new(csv_file) }
+  let(:controller) { Controller.new(csv_file, promotions) }
   let(:item1) { Item.new('Green Tea', 'GR1', 3.50) }
   let(:item2) { Item.new('Strawberries', 'SR1', 5.00) }
   let(:item3) { Item.new('Coffee', 'CF1', 11.23) }
@@ -13,7 +17,11 @@ RSpec.describe Controller do
         expect(controller.instance_variable_get(:@items)).not_to be_nil
       end
 
-      it "sets items instance variable" do
+      it "sets cart instance variable" do
+        expect(controller.instance_variable_get(:@cart)).not_to be_nil
+      end
+
+      it "sets promotions instance variable" do
         expect(controller.instance_variable_get(:@cart)).not_to be_nil
       end
 
@@ -86,7 +94,6 @@ RSpec.describe Controller do
 
     context "when there are items in the cart but no promotions" do
       before do
-        controller.cart.add_item(item1)
         controller.cart.add_item(item2)
         controller.cart.add_item(item3)
       end
@@ -99,5 +106,28 @@ RSpec.describe Controller do
         expect { controller.checkout }.to output(/Your total price is:/).to_stdout
       end
     end
+
+    context "when there are items in the cart and promotions to be aplied." do
+      before do
+        controller.cart.add_item(item1)
+        controller.cart.add_item(item2)
+        controller.cart.add_item(item3)
+      end
+
+      it "it applies the promotions to the cart" do
+        controller.checkout
+
+        expect(controller.cart.items.length).to eq(4)
+      end
+
+      it "displays the list of products in the cart" do
+        expect { controller.checkout }.to output(/Your cart:/).to_stdout
+      end
+
+      it "displays the price to the user." do
+        expect { controller.checkout }.to output(/Your total price is:/).to_stdout
+      end
+    end
   end
+
 end
