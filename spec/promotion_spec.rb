@@ -42,7 +42,7 @@ RSpec.describe Promotion do
   end
 
   describe "#apply" do
-    context "when promotion type is :buy_one_get_one_free" do
+    context "when promotion type is :buy_x_get_x_free" do
       it "adds an item to the cart but with the price set to 0" do
         cart.add_item(item1)
         buy_one_get_one_free_promotion.apply(cart.items)
