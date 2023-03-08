@@ -4,12 +4,14 @@ class Promotion
     @product_code = args[:product_code]
     @type = args[:type]
     @discount = args[:discount]
+    @min_quantity = args[:min_quantity]
+    @free_quantity = args[:free_quantity]
   end
 
   def apply(cart)
     case @type
-    when :buy_one_get_one_free
-      buy_one_get_one_free(cart)
+    when :buy_x_get_x_free
+      buy_x_get_x_free(cart)
     when :price_discount_per_quantity
       price_discount_per_quantity(cart)
     when :percentage_discount_per_quantity
@@ -19,13 +21,18 @@ class Promotion
 
   private
 
-  def buy_one_get_one_free(cart_items)
+  def buy_x_get_x_free(cart_items)
     matching_items = cart_items.select { |item| item.product_code == @product_code }
 
-    matching_items.each do |item|
-      new_item = item.dup
-      new_item.price = 0
-      cart_items << new_item
+    matching_items.each_slice(@min_quantity) do |slice|
+      next unless slice.size >= @min_quantity
+
+      free_item = slice[0]
+      @free_quantity.times do
+        new_item = free_item.dup
+        new_item.price = 0
+        cart_items << new_item
+      end
     end
   end
 
