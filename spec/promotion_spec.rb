@@ -3,7 +3,7 @@ require_relative '../lib/cart'
 require_relative '../lib/promotion'
 
 RSpec.describe Promotion do
-  let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_one_get_one_free, discount: 100, min_quantity: 1, free_quantity: 1 }) }
+  let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_x_get_x_free, discount: 100, min_quantity: 1, free_quantity: 1 }) }
   let(:price_discount_per_quantity_promotion) { Promotion.new({ title:'Strawberries - Buy 3 or more and get price reduction to 4.50$!', product_code: "SR1", type: :price_discount_per_quantity, discount: 4.50 }) }
   let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6 }) }
   let(:promotions) { [buy_one_get_one_free_promotion, price_discount_per_quantity_promotion, percentage_discount_per_quantity_promotion] }
@@ -23,7 +23,7 @@ RSpec.describe Promotion do
       end
 
       it "sets the promotion type" do
-        expect(buy_one_get_one_free_promotion.instance_variable_get(:@type)).to eq(:buy_one_get_one_free)
+        expect(buy_one_get_one_free_promotion.instance_variable_get(:@type)).to eq(:buy_x_get_x_free)
       end
 
       it "sets the promotion discount" do
