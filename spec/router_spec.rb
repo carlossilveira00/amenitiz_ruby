@@ -20,5 +20,4 @@ RSpec.describe Router do
       end
     end
   end
-
 end
