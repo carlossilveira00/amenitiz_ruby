@@ -6,7 +6,7 @@ RSpec.describe Promotion do
   let(:buy_one_get_one_free_promotion) { Promotion.new({ title:'Grean Tea - Buy one and get one free!', product_code: "GR1", type: :buy_x_get_x_free, discount: 100, min_quantity: 1, free_quantity: 1 }) }
   let(:buy_3_get_2_free_promotion) { Promotion.new({ title:'Grean Tea - Buy 3 and get 2 free!', product_code: "GR1", type: :buy_x_get_x_free, discount: 100, min_quantity: 3, free_quantity: 2 }) }
   let(:price_discount_per_quantity_promotion) { Promotion.new({ title:'Strawberries - Buy 3 or more and get price reduction to 4.50$!', product_code: "SR1", type: :price_discount_per_quantity, discount: 4.50, min_quantity: 3 }) }
-  let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6 }) }
+  let(:percentage_discount_per_quantity_promotion) { Promotion.new({ title:'Coffee - Buy 3 or more and get price reduction 2/3 of the price!', product_code: "CF1", type: :percentage_discount_per_quantity, discount: 66.6, min_quantity: 3 }) }
   let(:promotions) { [buy_one_get_one_free_promotion, price_discount_per_quantity_promotion, percentage_discount_per_quantity_promotion,buy_3_get_2_free_promotion] }
   let(:item1) { Item.new('Green Tea', 'GR1', 3.50) }
   let(:item2) { Item.new('Strawberries', 'SR1', 5.00) }
@@ -118,7 +118,7 @@ RSpec.describe Promotion do
         expect(cart.items[3].price).to eq(3.75)
       end
 
-      it "does not apply promotion if quantity is bellow 3" do
+      it "does not apply promotion if quantity is bellow min_quantity" do
         cart.add_item(item3)
         cart.add_item(item3)
 

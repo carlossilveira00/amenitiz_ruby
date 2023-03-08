@@ -46,7 +46,7 @@ class Promotion
     matching_items = cart_items.select { |item| item.product_code == @product_code }
 
     matching_items.each do |item|
-      item.price *= (100.0 - @discount) / 100.0 if matching_items.length > 2
+      item.price *= (100.0 - @discount) / 100.0 if matching_items.length >= @min_quantity
       item.price = item.price.round(2)
     end
   end
