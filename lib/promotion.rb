@@ -4,6 +4,8 @@ class Promotion
     @product_code = args[:product_code]
     @type = args[:type]
     @discount = args[:discount]
+    @min_quantity = args[:min_quantity]
+    @free_quantity = args[:free_quantity]
   end
 
   def apply(cart)
