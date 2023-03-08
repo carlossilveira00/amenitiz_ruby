@@ -60,6 +60,9 @@ class Controller
     if @cart.items.empty?
       puts "Your cart is empty! Are you sure you don't want something from our store?"
     else
+      @cart.compute_price
+      @cart.display_cart
+      puts 'Thanks a lot for coming! :)'
     end
   end
 
