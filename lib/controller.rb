@@ -7,15 +7,29 @@ class Controller
 
   def initialize(csv_file, promotions)
     @items = []
+    @promotions = promotions
     @cart = Cart.new(promotions)
     load_csv(csv_file)
   end
 
   def list_available_items
-    puts 'This is all the items we have available at the moment!'
+    if @promotions.empty?
+      puts "We don't have any promotions at the moment! I'm very sorry!"
+    else
+      puts 'This is all the items we have available at the moment!'
+      puts '---------------'
+      @items.each_with_index do |item, index|
+        puts "#{index} - [#{item.product_code}] - #{item.name} : #{item.price}$ "
+      end
+      puts '---------------'
+    end
+  end
+
+  def display_promotions
+    puts 'This is all the promotions we have running at this time!'
     puts '---------------'
-    @items.each_with_index do |item, index|
-      puts "#{index} - [#{item.product_code}] - #{item.name} : #{item.price}$ "
+    @promotions.each do |promotion|
+      puts "- #{promotion.title}"
     end
     puts '---------------'
   end

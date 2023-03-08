@@ -1,4 +1,6 @@
 class Promotion
+  attr_reader :title
+
   def initialize(args)
     @title = args[:title]
     @product_code = args[:product_code]

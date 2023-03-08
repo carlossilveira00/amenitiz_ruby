@@ -23,23 +23,26 @@ class Router
     puts "What would you like to do next?"
     puts '1- Display available items.'
     puts "-----------"
-    puts '2- Add item to cart.'
+    puts '2- Display promotions.'
     puts "-----------"
-    puts '3- Delete item from cart.'
+    puts '3- Add item to cart.'
     puts "-----------"
-    puts '4- Check cart and checkout.'
+    puts '4- Delete item from cart.'
     puts "-----------"
-    puts '5- Exit store.'
+    puts '5- Check cart and checkout.'
+    puts "-----------"
+    puts '6- Exit store.'
     puts "-----------"
   end
 
   def route_action(action)
     case action
       when 1 then @controller.list_available_items
-      when 2 then @controller.add_item_to_cart
-      when 3 then @controller.delete_item_from_cart
-      when 4 then @controller.checkout
-      when 5 then stop
+      when 2 then @controller.display_promotions
+      when 3 then @controller.add_item_to_cart
+      when 4 then @controller.delete_item_from_cart
+      when 5 then @controller.checkout
+      when 6 then stop
     end
   end
 
