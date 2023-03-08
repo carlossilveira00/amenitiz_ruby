@@ -39,7 +39,7 @@ class Promotion
   def price_discount_per_quantity(cart_items)
     matching_items = cart_items.select { |item| item.product_code == @product_code }
 
-    matching_items.each { |item| item.price = @discount } if matching_items.length >= 3
+    matching_items.each { |item| item.price = @discount } if matching_items.length >= @min_quantity
   end
 
   def percentage_discount_per_quantity(cart_items)
